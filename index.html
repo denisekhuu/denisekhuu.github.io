@@ -1,131 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Denise Khuu</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+</head>
+<body>
+
 <h1>About Me</h1>
-
- <div id="cookieNotice" class="light display-right" style="display: none;">
-    <div id="closeIcon" style="display: none;">
-    </div>
-    <div class="title-wrap">
-        <h4>Cookie Consent</h4>
-    </div>
-    <div class="content-wrap">
-        <div class="msg-wrap">
-            <p>This website uses cookies or similar technologies, to enhance your browsing experience and provide personalized recommendations. By continuing to use our website, you agree to our  <a style="color:#115cfa;" href="/privacy-policy">Privacy Policy</a></p>
-            <div class="btn-wrap">
-                <button class="btn-primary" onclick="acceptCookieConsent();">Accept</button>
-                <button class="btn-primary" onclick="declineCookieConsent();">Decline</button>
-                <a href="" id="messunglink">Google Analytics deaktiveren</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-S920HQM260"></script>
-<script type="text/javascript">
-  window.dataLayer = window.dataLayer || [];
+ 
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
+ 
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": { "background": "#000"},
+        "button": { "background": "#f1d600"}
+      },
+      "theme": "classic",
+      "type": "opt-in",
+      "content": {
+        "message": "Wir nutzen Cookies und Google Analytics, um diese Website für Sie so interessant wie möglich zu gestalten. Sind Sie damit einverstanden? (Sie können diese Entscheidung jederzeit widerrufen)",
+        "deny":"Ablehnen",
+        "allow": "OK, gerne!",
+        "link": "Datenschutzerklärung",
+        "href": "https://denisekhuu.github.io/datenschutz.html"
+      },
+      onStatusChange: function(status, chosenBefore) {
+        var type = this.options.type;
+        var didConsent = this.hasConsented();
+        if (type == 'opt-in' && didConsent) {
+          // enable cookies
+          loadGAonConsent();
+        }
+      }
+    })
+  });
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  function loadGAonConsent(){
+    window.dataLayer = window.dataLayer || [];
+    gtag('js', new Date());
 
-  // Anonymisierung der IP Adresse
-  gtag('config', 'G-S920HQM260', { 'anonymize_ip': true });
+    // Anonymisierung der IP Adresse
+    gtag('config', 'G-S920HQM260', { 'anonymize_ip': true });
+    var gascript = document.createElement("script");
+    gascript.async = true;
+    gascript.src = "https://www.googletagmanager.com/gtag/js?id=G-S920HQM260";
+    document.getElementsByTagName("head")[0].appendChild(gascript, document.getElementsByTagName("head")[0]);               
+  }
+  if (document.cookie.split(';').filter(function(item) {
+    return item.indexOf('cookieconsent_status=allow') >= 0
+  }).length) {
+      loadGAonConsent();
+  }
 </script>
-
- <!-- script type="text/javascript">
+</body>
+</html>
  
-    // Cookies deactivate tracking 
-    // Usage:
-    // <a href="javascript:gaOptout();" onclick="gaOptout();">Google Analytics deaktiveren</a>
- 
-    var gaProperty = 'G-S920HQM260';
-   
-    // Tracking deaktivieren wenn der Opt-Out Cookie existiert 
-    var disableStr = 'ga-disable-' + gaProperty;
-    if (document.cookie.indexOf(disableStr + '=true') > -1) {
-    window[disableStr] = true;
-    }
-    
-    // Opt-Out Funktion 
-    function gaOptout() {
-    document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
-    window[disableStr] = true;
-    alert('Das Tracking durch Google Analytics wurde in Ihrem Browser für diese Website deaktiviert.');
-    }
-    
-    // TODO: DSGVO Recht auf Löschung
- </script -->
-
-
-<script type="text/javascript">
-    var gaProperty = 'G-S920HQM260';
-    var disableStr = 'ga-disable-' + gaProperty;
-    var link=document.getElementById("messunglink");
-    if (document.cookie.indexOf(disableStr + '=true') > -1) {
-    window[disableStr] = true;
-    }
-    function gaOptout() {
-    document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
-    window[disableStr] = true;
-    alert('Das Tracking durch Google Analytics wurde in Ihrem Browser für diese Website deaktiviert.');
-    }
-    link.addEventListener('click', function(e){
-    e.preventDefault();
-      gaOptout();
-    });
- </script>
-
-
-<script type="text/javascript">
-// Create cookie
-function setCookie(cname, cvalue, exdays) {
-    const d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    let expires = "expires="+ d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-// Delete cookie
-function deleteCookie(cname) {
-    const d = new Date();
-    d.setTime(d.getTime() + (24*60*60*1000));
-    let expires = "expires="+ d.toUTCString();
-    document.cookie = cname + "=;" + expires + ";path=/";
-}
-
-// Read cookie
-function getCookie(cname) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
-
-// Set cookie consent
-function acceptCookieConsent(){
-    deleteCookie('user_cookie_consent');
-    setCookie('user_cookie_consent', 1, 30);
-    document.getElementById("cookieNotice").style.display = "none";
-}
-
-function declineCookieConsent() {
-    deleteCookie('user_cookie_consent');
-    setCookie('user_cookie_consent', 0, 30);
-    gaOptout()
-}
-
-let cookie_consent = getCookie("user_cookie_consent");
-if(cookie_consent != ""){
-    document.getElementById("cookieNotice").style.display = "none";
-}else{
-    document.getElementById("cookieNotice").style.display = "block";
-}
-
-
- </script>
