@@ -1,11 +1,57 @@
 <h1>About Me</h1>
+<a href="javascript:gaOptout();">Google Analytics deaktiveren</a>
+<a href="" id="messunglink">Google Analytics deaktiveren</a>
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S920HQM260"></script>
-<script>
+<script type="text/javascript">
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  <!-- Anonymisierung der IP Adresse -->
+  // Anonymisierung der IP Adresse
   gtag('config', 'G-S920HQM260', { 'anonymize_ip': true });
 </script>
+
+ <script type="text/javascript">
+ 
+    // Cookies deactivate tracking 
+    // Usage:
+    // <a href="javascript:gaOptout();" onclick="gaOptout();">Google Analytics deaktiveren</a>
+    
+    var gaProperty = 'G-S920HQM260';
+    
+    // Tracking deaktivieren wenn der Opt-Out Cookie existiert 
+    var disableStr = 'ga-disable-' + gaProperty;
+    if (document.cookie.indexOf(disableStr + '=true') > -1) {
+    window[disableStr] = true;
+    }
+    
+    // Opt-Out Funktion 
+    function gaOptout() {
+    document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+    window[disableStr] = true;
+    alert('Das Tracking durch Google Analytics wurde in Ihrem Browser für diese Website deaktiviert.');
+    }
+    
+    // DSGVO Recht auf Löschung
+ </script>
+
+
+<script type="text/javascript">
+    var gaProperty = 'G-S920HQM260';
+    var disableStr = 'ga-disable-' + gaProperty;
+    var link=document.getElementById("messunglink");
+    if (document.cookie.indexOf(disableStr + '=true') > -1) {
+    window[disableStr] = true;
+    }
+    function gaOptout() {
+    document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+    window[disableStr] = true;
+    alert('Das Tracking durch Google Analytics wurde in Ihrem Browser für diese Website deaktiviert.');
+    }
+    link.addEventListener('click', function(e){
+    e.preventDefault();
+      gaOptout();
+    });
+ </script>
