@@ -1,6 +1,4 @@
 <h1>About Me</h1>
-<a href="javascript:gaOptout();">Google Analytics deaktiveren</a>
-<a href="" id="messunglink">Google Analytics deaktiveren</a>
 
  <div id="cookieNotice" class="light display-right" style="display: none;">
     <div id="closeIcon" style="display: none;">
@@ -13,6 +11,8 @@
             <p>This website uses cookies or similar technologies, to enhance your browsing experience and provide personalized recommendations. By continuing to use our website, you agree to our  <a style="color:#115cfa;" href="/privacy-policy">Privacy Policy</a></p>
             <div class="btn-wrap">
                 <button class="btn-primary" onclick="acceptCookieConsent();">Accept</button>
+                <button class="btn-primary" onclick="declineCookieConsent();">Decline</button>
+                <a href="" id="messunglink">Google Analytics deaktiveren</a>
             </div>
         </div>
     </div>
@@ -114,11 +114,17 @@ function acceptCookieConsent(){
     document.getElementById("cookieNotice").style.display = "none";
 }
 
+function declineCookieConsent() {
+    deleteCookie('user_cookie_consent');
+    gaOptout()
+}
+
 let cookie_consent = getCookie("user_cookie_consent");
 if(cookie_consent != ""){
     document.getElementById("cookieNotice").style.display = "none";
 }else{
     document.getElementById("cookieNotice").style.display = "block";
 }
+
 
  </script>
