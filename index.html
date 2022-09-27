@@ -31,8 +31,10 @@
         var type = this.options.type;
         var didConsent = this.hasConsented();
         if (type == 'opt-in' && didConsent) {
-          // enable cookies
-          loadGAonConsent();
+          if (navigator.doNotTrack != 1 && navigator.doNotTrack != "yes" && window.doNotTrack != 1 && navigator.msDoNotTrack != 1) {
+	          // enable cookies
+            loadGAonConsent();
+          }
         }
       }
     })
